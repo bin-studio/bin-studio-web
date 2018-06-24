@@ -5,10 +5,10 @@
         <div class="element"></div>
       </div>
     </div>
-    <div id="right" :style="style.borderColor">
+    <div id="right" :style="styleRight">
       <div class="content">
         <p>We are a multidisciplinary research, design and development studio based in Berlin, DE.</p>
-        <p>Contact us at <a href="mailto:info@bin.am" :style="[style.color, style.borderColor]">studio@bin.am</a></p>
+        <p>Contact us at <a href="mailto:studio@bin.am">studio@bin.am</a></p>
       </div>
     </div>
   </div>
@@ -41,11 +41,20 @@ export default {
       color: {
         'color': selectedColors[0]
       },
+      colorInverse: {
+        'color': selectedColors[1]
+      },
       background: {
         'background': selectedColors[1]
       },
+      backgroundInverse: {
+        'background': selectedColors[0]
+      },
       borderColor: {
         'border-color': selectedColors[0]
+      },
+      borderColorInverse: {
+        'border-color': selectedColors[1]
       }
     }
 
@@ -60,6 +69,13 @@ export default {
   computed: {
     getCursor: function () {
       return this.randomChoice(this.cursors)
+    },
+    styleRight: function () {
+      if (Math.random() >= 0.5) {
+        return [this.style.borderColor, this.style.colorInverse, this.style.backgroundInverse]
+      } else {
+        return [this.style.borderColor, this.style.color, this.style.background]
+      }
     }
   },
   methods: {
@@ -98,7 +114,7 @@ body, html {
 }
 
 a {
-  color: rgb(220,220,220);
+  color: inherit;
   text-decoration: none;
   border-bottom: 1px dotted rgb(220,220,220);
 }
@@ -138,6 +154,10 @@ body.show-right {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  a {
+    border-color: inherit;
+  }
 }
 
 .content {
